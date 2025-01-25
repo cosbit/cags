@@ -1,0 +1,46 @@
+.bat-tile-upper {
+    margin: 0px;
+    margin-left: 12px;
+    margin-top: 15px;
+
+    .battery-img {
+        font-size: 24px;
+    }
+
+    .battery-perc {
+        margin-right: 15px;
+        font-size: 24px;
+    }
+}
+
+.bat-tile-middle {
+    margin-top: 5px;
+    margin-left: 10px;
+
+    .battery-cell-empty {
+        min-width: 18px;
+        min-height: 35px;
+        border-radius: 5px;
+        background: $bg-light;
+        box-shadow: inset 1px 1px 2px 1px rgba(0, 0, 0, 0.5);
+    }
+
+    .battery-cell {
+        background: $green-dark;
+        min-width: 18px;
+        min-height: 35px;
+        border-radius: 5px;
+    }
+}
+
+.bat-tile-lower {
+    margin-top: 10px;
+
+    .battery-decs {
+        margin-left: 10px;
+
+        .battery-dec {
+            font-size: 25px;
+        }
+    }
+}

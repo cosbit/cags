@@ -1,0 +1,47 @@
+/* https://github.com/morhetz/gruvbox */
+$bg-dark: #{"#282828"};
+$fg-dark: #{"#ebdbb2"};
+$red-dark: #{"#cc241d"};
+$green-dark: #{"#98971a"};
+
+$bg-light: #{"#fbf1c7"};
+$fg-light: #{"#3c3836"};
+$fg2-light: #{"#d5c4a1"};
+
+box.light {
+    background: $bg-light;
+    color: $fg-light;
+}
+
+box.dark {
+    background: $bg-dark;
+    color: $fg-dark;
+}
+
+box.tile-container {
+    min-width: 120px;
+    min-height: 120px;
+    border-radius: 10px;
+}
+
+window.Sidebar {
+    background: transparent;
+    color: $fg-dark;
+    font-family: "FiraCode";
+
+    .sidebar-container {
+        background: transparent;
+        margin: 5px;
+        margin-top: 2px;
+        padding: 8px;
+        color: $fg-dark;
+        border-radius: 10px;
+
+        .time-container {
+            font-size: 16px;
+        }
+    }
+}
+
+@import "./time/time.scss";
+@import "./battery/battery.scss";

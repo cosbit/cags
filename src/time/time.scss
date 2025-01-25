@@ -1,0 +1,19 @@
+$margin-val: 32px;
+
+.time-var {
+    font-size: 36px;
+}
+.time-dec {
+    color: white;
+    font-size: 20px;
+    margin-left: 15px;
+}
+
+.time-tile-upper {
+    margin-top: 12px;
+    margin-left: $margin-val;
+}
+
+.time-tile-lower {
+    margin-left: $margin-val;
+}
