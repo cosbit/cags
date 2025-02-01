@@ -11,16 +11,18 @@ https://github.com/N3RDIUM/dotfiles/blob/main/shell/widget/SideBar.tsx
 
 */
 
-export default function Sidebar(gdkmonitor: Gdk.Monitor) {
+export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application) {
   const { TOP, RIGHT, BOTTOM } = Astal.WindowAnchor;
 
   return (
     <window
+      name="Sidebar"
       className={"Sidebar"}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
       anchor={TOP | RIGHT | BOTTOM}
-      application={App}
+      application={app}
+      setup={self => app.add_window(self)}
     >
       <box
         className={"sidebar-container"}

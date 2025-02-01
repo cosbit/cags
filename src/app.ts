@@ -6,6 +6,7 @@ App.start({
   icons: "./icons",
   css: style,
   main() {
-    App.get_monitors().map(Sidebar);
+    const monitors = App.get_monitors();
+    Sidebar(monitors[0], App);
   },
 });

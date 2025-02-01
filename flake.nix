@@ -13,18 +13,24 @@
       inherit pkgs; 
 
       src = ./.;
-      name = "cag-shell";
-      entry = "app.ts";
+      name = "cags-shell";
+      entry = "./src/app.ts";
       gtk4 = false;
 
+      extraPackages = [
+        ags.packages.${system}.astal3
+        ags.packages.${system}.astal4
+        ags.packages.${system}.io
+      ];
+
     };
+
     devShells.${system}.default = pkgs.mkShell {
       buildInputs = [
         # includes astal3 astal4 astal-io by default
         (ags.packages.${system}.default.override {
           extraPackages = [
-            # cherry pick packages
-
+            
           ];
         })
       ];
