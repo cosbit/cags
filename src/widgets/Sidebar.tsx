@@ -3,6 +3,7 @@ import { Variable, bind, execAsync } from "astal";
 
 import BatteryTile from "../battery/Battery";
 import Time from "../time/Time";
+import Audio from "../audio/Audio";
 /*
 
 Using the following as a reference:
@@ -31,6 +32,9 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor) {
         <box className={"sidebar-top"} spacing={5}>
           <BatteryTile />
           <Time />
+        </box>
+        <box>
+          <Audio />
         </box>
       </box>
     </window>

@@ -8,6 +8,8 @@ $bg-light: #{"#fbf1c7"};
 $fg-light: #{"#3c3836"};
 $fg2-light: #{"#d5c4a1"};
 
+$bd-radius: 10px;
+
 box.light {
     background: $bg-light;
     color: $fg-light;
@@ -21,13 +23,19 @@ box.dark {
 box.tile-container {
     min-width: 120px;
     min-height: 120px;
-    border-radius: 10px;
+    border-radius: $bd-radius;
+}
+
+box.long-container {
+    min-width: 240px;
+    min-height: 120px;
+    border-radius: $bd-radius;
 }
 
 window.Sidebar {
     background: transparent;
     color: $fg-dark;
-    font-family: "FiraCode";
+    font-family: "Sk-Modernist";
 
     .sidebar-container {
         background: transparent;
@@ -35,13 +43,14 @@ window.Sidebar {
         margin-top: 2px;
         padding: 8px;
         color: $fg-dark;
-        border-radius: 10px;
-
-        .time-container {
-            font-size: 16px;
-        }
+        border-radius: $bd-radius;
     }
 }
 
+button {
+    background-color: transparent;
+}
+
 @import "./time/time.scss";
+@import "./audio/audio.scss";
 @import "./battery/battery.scss";

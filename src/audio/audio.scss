@@ -1,0 +1,63 @@
+.audio-tile-upper {
+    margin: 0px;
+    margin-left: 12px;
+    margin-top: 8px;
+
+    .audio-fruit {
+        font-size: 86px;
+        margin: 0px;
+        padding: 0px;
+        margin-bottom: -36px;
+    }
+
+    .audio-desc {
+        margin: 0;
+        margin-left: 12px;
+        margin-top: 8px;
+    }
+
+    .audio-overlay {
+        * {
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .overlay-icon {
+            color: $fg-dark;
+            margin-left: 14px;
+            font-size: 88px;
+        }
+
+        trough {
+            transition:
+                background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out;
+            border-radius: 100px;
+            background-color: transparent;
+            min-height: 44px;
+
+            highlight {
+                min-width: 44px;
+                border-radius: 100px;
+                background-color: $fg-dark;
+                border-radius: 100px;
+                transition:
+                    background-color 0.3s ease-in-out,
+                    color 0.3s ease-in-out;
+            }
+
+            slider {
+                min-width: 44px;
+                min-height: 44px;
+                border-radius: 100px;
+                background-color: transparent;
+                box-shadow: none;
+
+                transition:
+                    background-color 0.3s ease-in-out,
+                    color 0.3s ease-in-out;
+            }
+        }
+    }
+}
