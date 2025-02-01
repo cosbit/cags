@@ -15,6 +15,12 @@
         margin-left: 12px;
         margin-top: 8px;
     }
+}
+
+.audio-tile-middle {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 8px;
 
     .audio-overlay {
         * {
@@ -23,40 +29,41 @@
             border: none;
         }
 
-        .overlay-icon {
-            color: $fg-dark;
-            margin-left: 14px;
-            font-size: 88px;
+        .audio-icon {
+            font-size: 32px;
         }
 
         trough {
+            padding-left: 5px;
+            margin-left: 50px;
+
             transition:
                 background-color 0.3s ease-in-out,
                 color 0.3s ease-in-out;
-            border-radius: 100px;
-            background-color: transparent;
-            min-height: 44px;
+            border-radius: $bd-radius;
+            background-color: $bg-dark-shade;
 
             highlight {
-                min-width: 44px;
-                border-radius: 100px;
+                border-radius: $bd-radius;
                 background-color: $fg-dark;
-                border-radius: 100px;
                 transition:
                     background-color 0.3s ease-in-out,
                     color 0.3s ease-in-out;
             }
 
             slider {
-                min-width: 44px;
-                min-height: 44px;
-                border-radius: 100px;
-                background-color: transparent;
+                border-radius: $bd-radius;
+                background-color: #fff;
                 box-shadow: none;
 
                 transition:
                     background-color 0.3s ease-in-out,
                     color 0.3s ease-in-out;
+            }
+
+            fill {
+                border-radius: $bd-radius;
+                background-color: transparent;
             }
         }
     }

@@ -1,5 +1,6 @@
 /* https://github.com/morhetz/gruvbox */
 $bg-dark: #{"#282828"};
+$bg-dark-shade: #{"#1d2021"};
 $fg-dark: #{"#ebdbb2"};
 $red-dark: #{"#cc241d"};
 $green-dark: #{"#98971a"};
@@ -45,10 +46,6 @@ window.Sidebar {
         color: $fg-dark;
         border-radius: $bd-radius;
     }
-}
-
-button {
-    background-color: transparent;
 }
 
 @import "./time/time.scss";
