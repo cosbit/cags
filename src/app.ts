@@ -7,6 +7,12 @@ App.start({
   css: style,
   main() {
     const monitors = App.get_monitors();
-    Sidebar(monitors[0], App);
-  },
+    /* Start Automatically */
+    if (monitors[0] != null){
+      console.log("monitor found");
+      Sidebar(monitors[0], App);
+    } else {
+      console.log("monitor not found");
+    }
+  }
 });
