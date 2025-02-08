@@ -5,14 +5,12 @@ import Sidebar from "./widgets/Sidebar";
 App.start({
   icons: "./icons",
   css: style,
-  main() {
-    const monitors = App.get_monitors();
-    /* Start Automatically */
-    if (monitors[0] != null){
-      console.log("monitor found");
+  main() {},
+  requestHandler(request: string, res: (response: any) => void) {
+    if (request == "sidebar") {
+      const monitors = App.get_monitors()
       Sidebar(monitors[0], App);
-    } else {
-      console.log("monitor not found");
     }
-  }
+    res("unknown command")
+},
 });
