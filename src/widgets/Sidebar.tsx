@@ -17,6 +17,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
   return (
     <window
       name="Sidebar"
+      visible={false}
       className={"Sidebar"}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}

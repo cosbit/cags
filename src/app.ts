@@ -5,12 +5,8 @@ import Sidebar from "./widgets/Sidebar";
 App.start({
   icons: "./icons",
   css: style,
-  main() {},
-  requestHandler(request: string, res: (response: any) => void) {
-    if (request == "sidebar") {
-      const monitors = App.get_monitors()
-      Sidebar(monitors[0], App);
-    }
-    res("unknown command")
-},
+  main() {
+    const monitors = App.get_monitors()
+    Sidebar(monitors[0], App)
+  }
 });
