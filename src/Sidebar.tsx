@@ -5,6 +5,7 @@ import BatteryTile from "./battery/Battery";
 import Time from "./time/Time";
 import Audio from "./audio/Audio";
 import Art from "./art/Art";
+import Date from "./date/Date";
 
 /*
 
@@ -19,7 +20,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
   return (
     <window
       name="Sidebar"
-      visible={false}
+      // visible={false}
       className={"Sidebar"}
       gdkmonitor={gdkmonitor}
       exclusivity={Astal.Exclusivity.EXCLUSIVE}
@@ -41,8 +42,16 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
         <box>
           <Audio />
         </box>
-        <box>
+        <box spacing={5}>
           <Art />
+
+          <box 
+            vertical
+            className={"long-container"}
+          >
+            <Date/>
+          </box>
+          
         </box>
       </box>
     </window>

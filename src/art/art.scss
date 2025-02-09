@@ -1,6 +1,12 @@
-.image-icon {
-    font-size: 240px;
+.art-container {
+    padding: 0px;
     margin: 0px;
-    margin-right: -240px;
-    border-radius: $bd-radius;
+    margin-top: -10px;
+
+    .art-icon {
+        font-size: 230px;
+        margin: 0px;
+        margin-right: -230px;
+        border-radius: $bd-radius;
+    }
 }
