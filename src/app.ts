@@ -1,6 +1,6 @@
 import { App } from "astal/gtk3";
 import style from "./style.scss";
-import Sidebar from "./widgets/Sidebar";
+import Sidebar from "./Sidebar";
 
 App.start({
   icons: "./icons",

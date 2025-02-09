@@ -12,3 +12,11 @@ https://gjs-docs.gnome.org/gtk30~3.0/gtk.label
 https://gjs-docs.gnome.org/gtk30~3.0/
 https://aylur.github.io/libastal/io/class.Time.html
 https://github.com/N3RDIUM/dotfiles/blob/main/shell/widget/Time.tsx
+
+
+## Widgets Todo
+ - Brightness
+ - Image (just for decoration)
+ - System (memory, storage, cpu)
+ - Date / Calendar
+ - 

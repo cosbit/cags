@@ -27,9 +27,15 @@ box.tile-container {
     border-radius: $bd-radius;
 }
 
-box.long-container {
+box.wide-container {
     min-width: 240px;
     min-height: 120px;
+    border-radius: $bd-radius;
+}
+
+box.long-container {
+    min-width: 120px; 
+    min-height: 240px;
     border-radius: $bd-radius;
 }
 
@@ -51,3 +57,4 @@ window.Sidebar {
 @import "./time/time.scss";
 @import "./audio/audio.scss";
 @import "./battery/battery.scss";
+@import "./art/art.scss";

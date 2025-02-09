@@ -4,7 +4,7 @@ import { CenterBox, Icon, Slider, Switch } from "astal/gtk3/widget";
 
 export default function Network() {
   return (
-    <box vertical className={"long-container dark"}>
+    <box vertical className={"wide-container dark"}>
       <box>
         <label label={"wlan0"}></label>
       </box>

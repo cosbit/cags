@@ -1,9 +1,11 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import { Variable, bind, execAsync } from "astal";
 
-import BatteryTile from "../battery/Battery";
-import Time from "../time/Time";
-import Audio from "../audio/Audio";
+import BatteryTile from "./battery/Battery";
+import Time from "./time/Time";
+import Audio from "./audio/Audio";
+import Art from "./art/Art";
+
 /*
 
 Using the following as a reference:
@@ -38,6 +40,9 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
         </box>
         <box>
           <Audio />
+        </box>
+        <box>
+          <Art />
         </box>
       </box>
     </window>
