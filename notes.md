@@ -16,7 +16,6 @@ https://github.com/N3RDIUM/dotfiles/blob/main/shell/widget/Time.tsx
 
 ## Widgets Todo
  - Brightness
- - Image (just for decoration)
  - System (memory, storage, cpu)
- - Date / Calendar
- - 
+ - Hyprland things ? (active workspace / apps)
+ - wifi / bluetooth

@@ -1,0 +1,67 @@
+.bright-sec-upper {
+    margin-left: 8px;
+    margin-top: 5px;
+
+    .message {
+        margin-top: -35px;
+    }
+
+    .bright-dec-a {
+        font-size: 60px;
+        margin-left: 40px;
+        margin-top: 0px;
+    }
+}
+
+.bright-sec-lower {
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 8px;
+
+    .bright-overlay {
+        * {
+            padding: 0;
+            margin: 0;
+            border: none;
+        }
+
+        .bright-icon {
+            margin-top: -2px;
+            font-size: 20px;
+        }
+
+        trough {
+            padding-left: 5px;
+            margin-left: 45px;
+
+            transition:
+                background-color 0.3s ease-in-out,
+                color 0.3s ease-in-out;
+            border-radius: $bd-radius;
+            background-color: $bg-dark-shade;
+
+            highlight {
+                border-radius: $bd-radius;
+                background-color: $fg-light;
+                transition:
+                    background-color 0.3s ease-in-out,
+                    color 0.3s ease-in-out;
+            }
+
+            slider {
+                border-radius: $bd-radius;
+                background-color: #fff;
+                box-shadow: none;
+
+                transition:
+                    background-color 0.3s ease-in-out,
+                    color 0.3s ease-in-out;
+            }
+
+            fill {
+                border-radius: $bd-radius;
+                background-color: transparent;
+            }
+        }
+    }
+}

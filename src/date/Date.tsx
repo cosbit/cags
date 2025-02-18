@@ -30,9 +30,9 @@ export default function Date() {
             />
            </box>
            <centerbox className={"date-dec"}>
-                <Icon className={"date-dec-a"} icon={"join"}/>
-                <Icon className={"date-dec-b"} icon={"target"}/>
-                <Icon className={"date-dec-c"} icon={"teardrops"}/>
+                <Icon className={"date-deco"} icon={"join"}/>
+                <Icon className={"date-deco"} icon={"target"}/>
+                <Icon className={"date-deco"} icon={"teardrops"}/>
             </centerbox>
            <box>
             <label
