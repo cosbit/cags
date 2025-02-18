@@ -6,6 +6,8 @@ import Time from "./time/Time";
 import Audio from "./audio/Audio";
 import Art from "./art/Art";
 import Date from "./date/Date";
+import System from "./system/System";
+import Bright from "./bright/Bright";
 
 /*
 
@@ -35,24 +37,34 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
         vertical
         hexpand
       >
-        <box className={"sidebar-top"} spacing={5}>
+        <box spacing={5}>
           <BatteryTile />
           <Time />
         </box>
+
         <box>
           <Audio />
         </box>
+
         <box spacing={5}>
           <Art />
 
           <box 
             vertical
             className={"long-container"}
+            spacing={5}
           >
             <Date/>
+            <System/>
           </box>
           
         </box>
+
+        <box>
+          <Bright/>
+        </box>
+
+        
       </box>
     </window>
   );
