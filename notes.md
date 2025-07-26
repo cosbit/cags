@@ -19,3 +19,9 @@ https://github.com/N3RDIUM/dotfiles/blob/main/shell/widget/Time.tsx
  - System (memory, storage, cpu)
  - Hyprland things ? (active workspace / apps)
  - wifi / bluetooth
+
+
+## Development
+nix develop
+
+## Building
