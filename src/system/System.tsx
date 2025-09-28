@@ -3,23 +3,23 @@ import { Button, Icon } from "astal/gtk3/widget";
 
 export default function System() {
   return (
-    <box horizontal className={"tile-container dark system"}>
+    <box vertical className={"tile-container dark system-container"}>
       <Button
         onClicked={() => exec("shutdown now")}
-        className={"round-button"}
+        className={"round-button btn-1"}
       >
-        <Icon icon={"x"} />
+        <Icon class="system-icon " icon={"x"} />
       </Button>
       <Button onClicked={() => exec("hyprlock")}
-        className={"round-button"}
+        className={"round-button btn-2"}
       >
-        <Icon icon={"vault"} />
+        <Icon class="system-icon icon-2" icon={"vault"} />
       </Button>
       <Button
         onClicked={() => exec("systemctl suspend")}
-        className={"round-button"}
+        className={"round-button btn-3"}
       >
-        <Icon icon={"saturn"} />
+        <Icon class="system-icon icon-3" icon={"saturn"} />
       </Button>
     </box>
   );
