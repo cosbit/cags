@@ -8,6 +8,7 @@ import Art from "./art/Art";
 import Date from "./date/Date";
 import System from "./system/System";
 import Bright from "./bright/Bright";
+import Network from "./network/Network";
 
 /*
 
@@ -64,7 +65,9 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
           <Bright/>
         </box>
 
-        
+        <box>
+          <Network/>
+        </box>
       </box>
     </window>
   );

@@ -1,2 +1,22 @@
-.wifi-toggle {
+.network-tile {
+  padding: 5px;
+
+  box {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  label {
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+
+  // Add some space between icons and their labels
+  image {
+    margin-right: 4px;
+  }
+
+  switch {
+    margin-left: 10px;
+  }
 }
