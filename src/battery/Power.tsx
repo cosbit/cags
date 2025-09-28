@@ -1,15 +1,11 @@
-import { exec } from "child_process";
-import { Variable, Astal } from "astal";
-import { Gtk } from "astal/gtk3";
+import { Variable, execAsync } from "astal";
+import { Astal, Gtk } from "astal/gtk3";
 import { Icon } from "astal/gtk3/widget";
 
 function hasBattery(callback: (exists: boolean) => void) {
-  exec(
-    "[ -f /sys/class/power_supply/BAT1/capacity ]",
-    (error, stdout, stderr) => {
-      callback(error === null);
-    },
-  );
+  execAsync("[ -f /sys/class/power_supply/BAT1/capacity ]")
+    .then(() => callback(true))
+    .catch(() => callback(false));
 }
 
 function PowerUsage() {
