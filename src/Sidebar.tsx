@@ -1,7 +1,7 @@
 import { App, Astal, Gtk, Gdk } from "astal/gtk3";
 import { Variable, bind, execAsync } from "astal";
 
-import BatteryTile from "./battery/Battery";
+import PowerTile from "./battery/Power";
 import Time from "./time/Time";
 import Audio from "./audio/Audio";
 import Art from "./art/Art";
@@ -38,7 +38,7 @@ export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application)
         hexpand
       >
         <box spacing={5}>
-          <BatteryTile />
+          <PowerTile />
           <Time />
         </box>
 

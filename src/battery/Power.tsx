@@ -1,8 +1,46 @@
-import { Variable } from "astal";
+import { exec } from "child_process";
+import { Variable, Astal } from "astal";
 import { Gtk } from "astal/gtk3";
 import { Icon } from "astal/gtk3/widget";
 
-export default function BatteryTile() {
+function hasBattery(callback: (exists: boolean) => void) {
+  exec(
+    "[ -f /sys/class/power_supply/BAT1/capacity ]",
+    (error, stdout, stderr) => {
+      callback(error === null);
+    },
+  );
+}
+
+function PowerUsage() {
+  const { START, END } = Gtk.Align;
+
+  const usage = Variable<string>("0").poll(
+    60000,
+    "top -b -n1 | grep 'Cpu(s)' | awk '{print $2 + $4}'",
+    (out: string) => out.trim() + "%",
+  );
+
+  return (
+    <box vertical className={"tile-container light"}>
+      <box className={"bat-tile-upper"}>
+        <Icon className={"battery-img"} icon={"utilities"} />
+        <label
+          truncate
+          hexpand
+          halign={END}
+          label={usage.value}
+          className={"battery-perc"}
+        />
+      </box>
+      <box className={"bat-tile-lower"}>
+        <label label={"CPU Usage"} />
+      </box>
+    </box>
+  );
+}
+
+function BatteryInfo() {
   const { START, END } = Gtk.Align;
 
   const capacity = Variable<number>(0).poll(
@@ -84,4 +122,14 @@ export default function BatteryTile() {
       </box>
     </box>
   );
+}
+
+export default function PowerTile() {
+  const [batteryExists, setBatteryExists] = Astal.useState(false);
+
+  Astal.useEffect(() => {
+    hasBattery(setBatteryExists);
+  }, []);
+
+  return batteryExists ? <BatteryInfo /> : <PowerUsage />;
 }
