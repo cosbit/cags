@@ -8,18 +8,18 @@ export default function System() {
         onClicked={() => exec("shutdown now")}
         className={"round-button"}
       >
-        <Icon icon={"src/icons/x.svg"} />
+        <Icon icon={"x"} />
       </Button>
       <Button onClicked={() => exec("hyprlock")}
         className={"round-button"}
       >
-        <Icon icon={"src/icons/vault.svg"} />
+        <Icon icon={"vault"} />
       </Button>
       <Button
         onClicked={() => exec("systemctl suspend")}
         className={"round-button"}
       >
-        <Icon icon={"src/icons/saturn.svg"} />
+        <Icon icon={"saturn"} />
       </Button>
     </box>
   );
