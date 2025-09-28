@@ -121,11 +121,30 @@ function BatteryInfo() {
 }
 
 export default function PowerTile() {
-  const [batteryExists, setBatteryExists] = Astal.useState(false);
+  const batteryExists = Variable(false);
 
-  Astal.useEffect(() => {
-    hasBattery(setBatteryExists);
-  }, []);
+  // Check for battery asynchronously
+  hasBattery((exists) => batteryExists.set(exists));
 
-  return batteryExists ? <BatteryInfo /> : <PowerUsage />;
+  // A container that will hold either BatteryInfo or PowerUsage
+  const container = (
+    <box
+      setup={(self) => {
+        // Run this whenever batteryExists changes
+        self.hook(batteryExists, () => {
+          // Remove any existing children
+          self.get_children().forEach((child) => child.destroy());
+
+          // Add the correct widget based on state
+          if (batteryExists.get()) {
+            self.add(<BatteryInfo />);
+          } else {
+            self.add(<PowerUsage />);
+          }
+        });
+      }}
+    />
+  );
+
+  return container;
 }
