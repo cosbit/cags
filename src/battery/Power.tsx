@@ -126,25 +126,7 @@ export default function PowerTile() {
   // Check for battery asynchronously
   hasBattery((exists) => batteryExists.set(exists));
 
-  // A container that will hold either BatteryInfo or PowerUsage
-  const container = (
-    <box
-      setup={(self) => {
-        // Run this whenever batteryExists changes
-        self.hook(batteryExists, () => {
-          // Remove any existing children
-          self.get_children().forEach((child) => child.destroy());
-
-          // Add the correct widget based on state
-          if (batteryExists.get()) {
-            self.add(<BatteryInfo />);
-          } else {
-            self.add(<PowerUsage />);
-          }
-        });
-      }}
-    />
+  return batteryExists.apply((exists) =>
+    exists ? <BatteryInfo /> : <PowerUsage />,
   );
-
-  return container;
 }
