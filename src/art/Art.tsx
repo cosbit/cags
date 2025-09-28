@@ -1,10 +1,12 @@
-import { Icon } from "astal/gtk3/widget";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 
+const Art = () =>
+  Widget.Box({
+    className: "art-container long-container",
+    child: Widget.Icon({
+      className: "art-icon",
+      icon: "jwav",
+    }),
+  });
 
-export default function Art() {
-    return (
-        <box className={"art-container long-container"}>
-            <Icon className={"art-icon"} icon={"jwav"}/>
-        </box>
-    )
-}
+export default Art;

@@ -1,5 +1,5 @@
-import { App, Astal, Gtk, Gdk } from "astal/gtk3";
-import { Variable, bind, execAsync } from "astal";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Gtk from "gi://Gtk?version=3.0";
 
 import BatteryTile from "./battery/Battery";
 import Time from "./time/Time";
@@ -16,56 +16,44 @@ https://github.com/N3RDIUM/dotfiles/blob/main/shell/widget/SideBar.tsx
 
 */
 
-export default function Sidebar(gdkmonitor: Gdk.Monitor, app: Astal.Application) {
-  const { TOP, RIGHT, BOTTOM } = Astal.WindowAnchor;
+const Sidebar = ({ monitor }: { monitor: number }) =>
+  Widget.Window({
+    name: "Sidebar",
+    className: "Sidebar",
+    monitor,
+    exclusivity: "exclusive",
+    anchor: ["top", "right", "bottom"],
+    child: Widget.Box({
+      className: "sidebar-container",
+      spacing: 5,
+      baseline_position: Gtk.BaselinePosition.TOP,
+      vertical: true,
+      hexpand: true,
+      children: [
+        Widget.Box({
+          spacing: 5,
+          children: [BatteryTile(), Time()],
+        }),
+        Widget.Box({
+          children: [Audio()],
+        }),
+        Widget.Box({
+          spacing: 5,
+          children: [
+            Art(),
+            Widget.Box({
+              vertical: true,
+              className: "long-container",
+              spacing: 5,
+              children: [Date(), System()],
+            }),
+          ],
+        }),
+        Widget.Box({
+          children: [Bright()],
+        }),
+      ],
+    }),
+  });
 
-  return (
-    <window
-      name="Sidebar"
-      // visible={false}
-      className={"Sidebar"}
-      gdkmonitor={gdkmonitor}
-      exclusivity={Astal.Exclusivity.EXCLUSIVE}
-      anchor={TOP | RIGHT | BOTTOM}
-      application={app}
-      setup={self => app.add_window(self)}
-    >
-      <box
-        className={"sidebar-container"}
-        spacing={5}
-        baselinePosition={Gtk.BaselinePosition.TOP}
-        vertical
-        hexpand
-      >
-        <box spacing={5}>
-          <BatteryTile />
-          <Time />
-        </box>
-
-        <box>
-          <Audio />
-        </box>
-
-        <box spacing={5}>
-          <Art />
-
-          <box 
-            vertical
-            className={"long-container"}
-            spacing={5}
-          >
-            <Date/>
-            <System/>
-          </box>
-          
-        </box>
-
-        <box>
-          <Bright/>
-        </box>
-
-        
-      </box>
-    </window>
-  );
-}
+export default Sidebar;

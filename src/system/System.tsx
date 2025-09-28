@@ -1,14 +1,9 @@
-import { Variable } from "astal";
-import { Gtk } from "astal/gtk3";
-import { Icon } from "astal/gtk3/widget";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
 
+const System = () =>
+  Widget.Box({
+    vertical: true,
+    className: "tile-container dark",
+  });
 
-
-export default function System() {
-    return (
-        <box vertical className={"tile-container dark"}>
-            
-
-        </box>
-    )
-}
+export default System;

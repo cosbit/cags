@@ -1,32 +1,48 @@
-import { Variable } from "astal";
-import { Icon } from "astal/gtk3/widget";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Variable from "resource:///com/github/Aylur/ags/variable.js";
+import Utils from "resource:///com/github/Aylur/ags/utils.js";
 
-const hour = Variable<string>("").poll(
-  1000,
-  "date +'%I'",
-  (out: string, prev: string) => out,
-);
+const time = Variable("", {
+  // poll every second
+  poll: [1000, "date"],
+});
 
-const minute = Variable<string>("").poll(
-  1000,
-  "date +'%M'",
-  (out: string, prev: string) => out,
-);
+const Time = () =>
+  Widget.Box({
+    vertical: true,
+    className: "tile-container dark",
+    children: [
+      Widget.Box({
+        className: "time-tile-upper",
+        children: [
+          Widget.Label({
+            className: "time-var",
+            label: time.bind().transform((t) => {
+              return Utils.exec(`date -d "${t}" +'%I'`);
+            }),
+          }),
+        ],
+      }),
+      Widget.Box({
+        className: "time-tile-middle",
+        children: [
+          Widget.Icon({ className: "time-dec", icon: "asterisk" }),
+          Widget.Icon({ className: "time-dec", icon: "sphere" }),
+          Widget.Icon({ className: "time-dec", icon: "vault" }),
+        ],
+      }),
+      Widget.Box({
+        className: "time-tile-lower",
+        children: [
+          Widget.Label({
+            className: "time-var",
+            label: time.bind().transform((t) => {
+              return Utils.exec(`date -d "${t}" +'%M'`);
+            }),
+          }),
+        ],
+      }),
+    ],
+  });
 
-export default function Time() {
-  return (
-    <box vertical className={"tile-container dark"}>
-      <box className={"time-tile-upper"}>
-        <label className={"time-var"} label={hour()} />
-      </box>
-      <box className={"time-tile-middle"}>
-        <Icon className={"time-dec"} icon={"asterisk"} />
-        <Icon className={"time-dec"} icon={"sphere"} />
-        <Icon className={"time-dec"} icon={"vault"} />
-      </box>
-      <box className={"time-tile-lower"}>
-        <label className={"time-var"} label={minute()} />
-      </box>
-    </box>
-  );
-}
+export default Time;

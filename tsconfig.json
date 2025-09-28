@@ -1,14 +1,24 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig",
-    "compilerOptions": {
-        "experimentalDecorators": true,
-        "strict": true,
-        "target": "ES2022",
-        "module": "ES2022",
-        "moduleResolution": "Bundler",
-        // "checkJs": true,
-        // "allowJs": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "astal/gtk3",
-    }
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022"],
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "jsxImportSource": "import.meta.url",
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "types/*": ["./types/*"],
+      "@/*": ["./src/*"],
+      "gi://*": ["/nix/store/p1f9b9vj7a6i4q2m9s0d4fz1w1z3g19n-gi-ts/share/gi-ts/types/Gjs"],
+      "resource://*": ["/nix/store/p1f9b9vj7a6i4q2m9s0d4fz1w1z3g19n-gi-ts/share/gi-ts/types/Gjs"]
+    },
+    "types": ["ags/env", "gi/env"]
+  },
+  "include": ["src", "types"],
+  "exclude": ["node_modules"]
 }

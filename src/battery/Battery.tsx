@@ -1,87 +1,111 @@
-import { Variable } from "astal";
-import { Gtk } from "astal/gtk3";
-import { Icon } from "astal/gtk3/widget";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Gtk from "gi://Gtk?version=3.0";
+import Battery from "resource:///com/github/Aylur/ags/service/battery.js";
 
-export default function BatteryTile() {
-  const { START, END } = Gtk.Align;
-
-  const capacity = Variable<number>(0).poll(
-    60000,
-    "cat /sys/class/power_supply/BAT1/capacity",
-    (out: string, prev: number) => parseInt(out),
-  );
-
-  const poll_to_str = (v: number) => v.toString() + "%";
-
-  return (
-    <box vertical className={"tile-container light"}>
-      <box className={"bat-tile-upper"}>
-        <Icon className={"battery-img"} icon={"nuclear"} />
-        <label
-          truncate
-          hexpand
-          halign={END}
-          label={capacity(poll_to_str)}
-          className={"battery-perc"}
-        />
-      </box>
-      <box
-        spacing={2}
-        className={"bat-tile-middle"}
-        baselinePosition={Gtk.BaselinePosition.CENTER}
-      >
-        <box className={"battery-cell"} />
-
-        <box
-          setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 30 ? "battery-cell" : "battery-cell-empty",
-                true,
+const BatteryTile = () =>
+  Widget.Box({
+    vertical: true,
+    className: "tile-container light",
+    children: [
+      Widget.Box({
+        className: "bat-tile-upper",
+        children: [
+          Widget.Icon({
+            className: "battery-img",
+            icon: "nuclear",
+          }),
+          Widget.Label({
+            truncate: "end",
+            hexpand: true,
+            hpack: "end",
+            className: "battery-perc",
+            label: Battery.bind("percent").transform((p) => `${p}%`),
+          }),
+        ],
+      }),
+      Widget.Box({
+        spacing: 2,
+        className: "bat-tile-middle",
+        baseline_position: Gtk.BaselinePosition.CENTER,
+        children: [
+          Widget.Box({ className: "battery-cell" }),
+          Widget.Box({
+            className: "battery-cell-empty",
+            setup: (self) =>
+              self.hook(
+                Battery,
+                () => {
+                  self.toggleClassName("battery-cell", Battery.percent >= 30);
+                  self.toggleClassName(
+                    "battery-cell-empty",
+                    Battery.percent < 30,
+                  );
+                },
+                "notify::percent",
               ),
-            );
-          }}
-        />
+          }),
+          Widget.Box({
+            className: "battery-cell-empty",
+            setup: (self) =>
+              self.hook(
+                Battery,
+                () => {
+                  self.toggleClassName("battery-cell", Battery.percent >= 50);
+                  self.toggleClassName(
+                    "battery-cell-empty",
+                    Battery.percent < 50,
+                  );
+                },
+                "notify::percent",
+              ),
+          }),
+          Widget.Box({
+            className: "battery-cell-empty",
+            setup: (self) =>
+              self.hook(
+                Battery,
+                () => {
+                  self.toggleClassName("battery-cell", Battery.percent >= 70);
+                  self.toggleClassName(
+                    "battery-cell-empty",
+                    Battery.percent < 70,
+                  );
+                },
+                "notify::percent",
+              ),
+          }),
+          Widget.Box({
+            className: "battery-cell-empty",
+            setup: (self) =>
+              self.hook(
+                Battery,
+                () => {
+                  self.toggleClassName("battery-cell", Battery.percent >= 90);
+                  self.toggleClassName(
+                    "battery-cell-empty",
+                    Battery.percent < 90,
+                  );
+                },
+                "notify::percent",
+              ),
+          }),
+        ],
+      }),
+      Widget.Box({
+        className: "bat-tile-lower",
+        children: [
+          Widget.Box({
+            spacing: 10,
+            className: "battery-decs",
+            children: [
+              Widget.Icon({ className: "battery-dec", icon: "stars" }),
+              Widget.Icon({ className: "battery-dec", icon: "wormhole" }),
+              Widget.Icon({ className: "battery-dec", icon: "world" }),
+            ],
+          }),
+        ],
+      }),
+    ],
+  });
 
-        <box
-          setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 50 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
-          }}
-        />
-
-        <box
-          setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 70 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
-          }}
-        />
-        <box
-          setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 90 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
-          }}
-        />
-      </box>
-      <box className={"bat-tile-lower"}>
-        <box spacing={10} className={"battery-decs"}>
-          <Icon className={"battery-dec"} icon={"stars"} />
-          <Icon className={"battery-dec"} icon={"wormhole"} />
-          <Icon className={"battery-dec"} icon={"world"} />
-        </box>
-      </box>
-    </box>
-  );
-}
+export default BatteryTile;

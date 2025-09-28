@@ -1,70 +1,54 @@
 .audio-tile-upper {
+  margin: 0px;
+  margin-left: 12px;
+  margin-top: 8px;
+
+  .audio-fruit {
+    font-size: 86px;
     margin: 0px;
+    padding: 0px;
+    margin-bottom: -36px;
+  }
+
+  .audio-desc {
+    margin: 0;
     margin-left: 12px;
     margin-top: 8px;
-
-    .audio-fruit {
-        font-size: 86px;
-        margin: 0px;
-        padding: 0px;
-        margin-bottom: -36px;
-    }
-
-    .audio-desc {
-        margin: 0;
-        margin-left: 12px;
-        margin-top: 8px;
-    }
+  }
 }
 
 .audio-tile-middle {
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-top: 8px;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 8px;
 
-    .audio-overlay {
-        * {
-            padding: 0;
-            margin: 0;
-            border: none;
-        }
-
-        .audio-icon {
-            font-size: 32px;
-        }
-
-        trough {
-            padding-left: 0px;
-            margin-left: 50px;
-
-            transition:
-                background-color 0.3s ease-in-out,
-                color 0.3s ease-in-out;
-            border-radius: $bd-radius;
-            background-color: $bg-dark-shade;
-
-            highlight {
-                border-radius: $bd-radius;
-                background-color: $fg-dark;
-                transition:
-                    background-color 0.3s ease-in-out,
-                    color 0.3s ease-in-out;
-            }
-
-            slider {
-                border-radius: $bd-radius;
-                background-color: #fff;
-                box-shadow: none;
-
-                transition:
-                    background-color 0.3s ease-in-out,
-                    color 0.3s ease-in-out;
-            }
-
-            fill {
-                border-radius: $bd-radius;
-                background-color: transparent;
-            }
-        }
+  .audio-overlay {
+    .audio-icon {
+      font-size: 32px;
     }
+
+    .slider {
+      padding-left: 0px;
+      margin-left: 50px;
+
+      .trough {
+        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        border-radius: $bd-radius;
+        background-color: $bg-dark-shade;
+
+        .fill {
+          border-radius: $bd-radius;
+          background-color: $fg-dark;
+          transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .slider {
+          border-radius: $bd-radius;
+          background-color: #fff;
+          box-shadow: none;
+          transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+      }
+    }
+  }
 }

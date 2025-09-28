@@ -1,54 +1,72 @@
-import { Variable } from "astal";
-import { Gtk } from "astal/gtk3";
-import { Icon } from "astal/gtk3/widget";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Variable from "resource:///com/github/Aylur/ags/variable.js";
+import Utils from "resource:///com/github/Aylur/ags/utils.js";
+import Gtk from "gi://Gtk?version=3.0";
 
-// const date_full = exec(`date +'%D'`);
-// const date_day = exec(`date +'%A'`);
-// const date_month = exec(`date +'%B'`);
+const date = Variable("", {
+  // poll every minute
+  poll: [60000, "date"],
+});
 
-const date_full = Variable<string>("").poll(
-  60000,
-  "date +'%D'",
-  (out: string, prev: string) => out,
-);
+const DateComp = () =>
+  Widget.Box({
+    vertical: true,
+    className: "tile-container light date-container",
+    children: [
+      Widget.Box({
+        children: [
+          Widget.Label({
+            truncate: "end",
+            hexpand: true,
+            className: "date-full",
+            hpack: "start",
+            label: date.bind().transform((d) => {
+              return Utils.exec(`date -d "${d}" +'%D'`);
+            }),
+          }),
+          Widget.Icon({ className: "date-fruit", icon: "squares" }),
+        ],
+      }),
+      Widget.Box({
+        children: [
+          Widget.Label({
+            truncate: "end",
+            hexpand: true,
+            className: "date-day",
+            label: date.bind().transform((d) => {
+              return Utils.exec(`date -d "${d}" +'%A'`);
+            }),
+          }),
+        ],
+      }),
+      Widget.CenterBox({
+        className: "date-dec",
+        start_widget: Widget.Icon({
+          className: "date-deco",
+          icon: "join",
+        }),
+        center_widget: Widget.Icon({
+          className: "date-deco",
+          icon: "target",
+        }),
+        end_widget: Widget.Icon({
+          className: "date-deco",
+          icon: "teardrops",
+        }),
+      }),
+      Widget.Box({
+        children: [
+          Widget.Label({
+            truncate: "end",
+            hexpand: true,
+            className: "date-month",
+            label: date.bind().transform((d) => {
+              return Utils.exec(`date -d "${d}" +'%B'`);
+            }),
+          }),
+        ],
+      }),
+    ],
+  });
 
-const date_day = Variable<string>("").poll(
-  60000,
-  "date +'%A'",
-  (out: string, prev: string) => out,
-);
-
-const date_month = Variable<string>("").poll(
-  60000,
-  "date +'%B'",
-  (out: string, prev: string) => out,
-);
-
-export default function Date() {
-  return (
-    <box vertical className={"tile-container light date-container"}>
-      <box>
-        <label
-          truncate
-          hexpand
-          label={date_full()}
-          className={"date-full"}
-          halign={Gtk.Align.START}
-        />
-        <Icon className={"date-fruit"} icon={"squares"} />
-      </box>
-
-      <box>
-        <label truncate hexpand label={date_day()} className={"date-day"} />
-      </box>
-      <centerbox className={"date-dec"}>
-        <Icon className={"date-deco"} icon={"join"} />
-        <Icon className={"date-deco"} icon={"target"} />
-        <Icon className={"date-deco"} icon={"teardrops"} />
-      </centerbox>
-      <box>
-        <label truncate hexpand label={date_month()} className={"date-month"} />
-      </box>
-    </box>
-  );
-}
+export default DateComp;

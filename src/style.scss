@@ -11,35 +11,35 @@ $fg2-light: #{"#d5c4a1"};
 
 $bd-radius: 10px;
 
-box.light {
+.light {
     background: $bg-light;
     color: $fg-light;
 }
 
-box.dark {
+.dark {
     background: $bg-dark;
     color: $fg-dark;
 }
 
-box.tile-container {
+.tile-container {
     min-width: 120px;
     min-height: 120px;
     border-radius: $bd-radius;
 }
 
-box.wide-container {
+.wide-container {
     min-width: 240px;
     min-height: 120px;
     border-radius: $bd-radius;
 }
 
-box.long-container {
+.long-container {
     min-width: 120px; 
     min-height: 240px;
     border-radius: $bd-radius;
 }
 
-window.Sidebar {
+.Sidebar {
     background: transparent;
     color: $fg-dark;
     font-family: "Sk-Modernist";

@@ -1,12 +1,9 @@
-import { App } from "astal/gtk3";
-import style from "./style.scss";
+import App from "resource:///com/github/Aylur/ags/app.js";
 import Sidebar from "./Sidebar";
 
-App.start({
-  icons: "./icons",
-  css: style,
-  main() {
-    const monitors = App.get_monitors()
-    Sidebar(monitors[0], App)
-  }
+App.config({
+  style: App.configDir + "/src/style.scss",
+  windows: [Sidebar({ monitor: 0 })],
 });
+
+export {};

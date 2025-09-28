@@ -1,62 +1,59 @@
-import { Variable } from "astal";
-import { exec } from "astal/process";
-import { Gtk } from "astal/gtk3";
-import { Icon, Overlay, Slider } from "astal/gtk3/widget";
-import { bind, Subscribable } from "astal/binding";
+import Widget from "resource:///com/github/Aylur/ags/widget.js";
+import Gtk from "gi://Gtk?version=3.0";
+import Audio from "resource:///com/github/Aylur/ags/service/audio.js";
 
-/**
- * Initialize Volume
- * 
- * Get from pactl sink
- * It returns left and right, we have to get either of them.
- * Then convert to int -> this is the current volume as int
- * We initialize volume to be set to that int.
- * 
-*/
-const execstr = exec(`pactl get-sink-volume @DEFAULT_SINK@`);
-const match = execstr.match(/(\d+)%/);
-const volumeint = match ? parseInt(match[1], 10) : 0;
+const AudioComp = () =>
+  Widget.Box({
+    vertical: true,
+    className: "wide-container dark",
+    children: [
+      Widget.Box({
+        className: "audio-tile-upper",
+        children: [
+          Widget.Icon({ className: "audio-fruit", icon: "trace" }),
+          Widget.Box({
+            vertical: true,
+            hexpand: true,
+            className: "audio-desc",
+            children: [
+              Widget.Label({ label: "fuck you" }),
+              Widget.Label({ label: "dolby digital" }),
+            ],
+          }),
+        ],
+      }),
+      Widget.Box({
+        className: "audio-tile-middle",
+        children: [
+          Widget.Overlay({
+            className: "audio-overlay",
+            child: Widget.Slider({
+              hexpand: true,
+              draw_value: false,
+              on_change: ({ value }) => (Audio.speaker.volume = value),
+              setup: (self) =>
+                self.hook(
+                  Audio.speaker,
+                  () => {
+                    self.value = Audio.speaker.volume || 0;
+                  },
+                  "speaker-changed",
+                ),
+            }),
+            overlays: [
+              Widget.Icon({
+                className: "audio-icon",
+                hpack: "start",
+                icon: "saturn",
+              }),
+            ],
+          }),
+        ],
+      }),
+      Widget.Box({
+        className: "audio-tile-lower",
+      }),
+    ],
+  });
 
-const volume = Variable(volumeint);
-
-volume.subscribe((value: number) => {
-  let rounded = Math.round(value);
-  exec(`pactl set-sink-volume @DEFAULT_SINK@ ${value}%`);
-});
-
-export default function Audio() {
-  return (
-    <box vertical className={"wide-container dark"}>
-      <box className={"audio-tile-upper"}>
-        <Icon className={"audio-fruit"} icon={"trace"} />
-        <box vertical hexpand className={"audio-desc"}>
-          <label label={"fuck you"} />
-          <label label={"dolby digital"} />
-        </box>
-      </box>
-      <box className={"audio-tile-middle"}>
-        <Overlay
-          className={"audio-overlay"}
-          child={
-            <Slider
-              hexpand
-              draw_value={false}
-              min={0}
-              max={100}
-              value={volumeint}
-              onDragged={(self) => volume.set(self.value)}
-            />
-          }
-          overlay={
-            <Icon
-              className={"audio-icon"}
-              halign={Gtk.Align.START}
-              icon="saturn"
-            />
-          }
-        />
-      </box>
-      <box className={"audio-tile-lower"}></box>
-    </box>
-  );
-}
+export default AudioComp;
