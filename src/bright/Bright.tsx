@@ -18,8 +18,6 @@ function getBrightnessDevice(): string {
             return '-d amdgpu_bl1';
         }
     } catch (e) {
-        // If brightnessctl is not found or fails, it will throw.
-        // We'll just fall through and use the fallback.
         console.log("Could not find amdgpu_bl1, falling back to input22::kana.");
     }
     return '';

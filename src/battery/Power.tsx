@@ -20,7 +20,7 @@ function PowerUsage() {
   return (
     <box vertical className={"tile-container light"}>
       <box className={"bat-tile-upper"}>
-        <Icon className={"battery-img"} icon={"utilities"} />
+        <Icon className={"battery-img"} icon={"stars"} />
         <label
           truncate
           hexpand
