@@ -11,18 +11,37 @@ import { bind, Subscribable } from "astal/binding";
  * 
  */
 
-const execstr = exec(`brightnessctl get -d amdgpu_bl1`);
+function getBrightnessDevice(): string {
+    try {
+        const devicesOutput = exec('brightnessctl --list');
+        if (devicesOutput.includes('amdgpu_bl1')) {
+            return 'amdgpu_bl1';
+        }
+    } catch (e) {
+        // If brightnessctl is not found or fails, it will throw.
+        // We'll just fall through and use the fallback.
+        console.log("Could not find amdgpu_bl1, falling back to input22::kana.");
+    }
+    return 'input22::kana';
+}
+
+const device = getBrightnessDevice();
+
+const execstr = exec(`brightnessctl get -d ${device}`);
 const brightint = parseInt(execstr);
-const asdiv = (brightint/255) * 100;
+
+const maxBrightStr = exec(`brightnessctl get-max -d ${device}`);
+const maxBrightInt = parseInt(maxBrightStr);
+
+const asdiv = maxBrightInt > 0 ? (brightint / maxBrightInt) * 100 : 0;
 const asperc = Math.round(asdiv);
 
 const brightness = Variable(asperc);
 
 brightness.subscribe((value: number) => {
     let rounded = Math.round(value);
-    exec(`brightnessctl set -d amdgpu_bl1 ${value}%`);
-
-})
+    exec(`brightnessctl set -d ${device} ${value}%`);
+});
 
 export default function Bright(){
     return (
