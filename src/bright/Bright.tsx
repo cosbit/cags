@@ -6,26 +6,27 @@ import { bind, Subscribable } from "astal/binding";
 
 /**
  * Initialize brightness
- * 
+ *
  * using brightnessctl
- * 
+ *
  */
 
 function getBrightnessDevice(): string {
-    try {
-        const devicesOutput = exec('brightnessctl --list');
-        if (devicesOutput.includes('amdgpu_bl1')) {
-            return '-d amdgpu_bl1';
-        }
-    } catch (e) {
-        console.log("Could not find amdgpu_bl1, falling back to input22::kana.");
+  try {
+    const devicesOutput = exec("brightnessctl --list");
+    if (devicesOutput.includes("amdgpu_bl1")) {
+      return "-d amdgpu_bl1";
     }
-    return '';
+  } catch (e) {
+    console.log("Could not find amdgpu_bl1, falling back to input22::kana.");
+  }
+  return "";
 }
 
 const device = getBrightnessDevice();
 
 const execstr = exec(`brightnessctl get ${device}`);
+console.log(execstr);
 const brightint = parseInt(execstr);
 
 const maxBrightStr = exec(`brightnessctl get-max ${device}`);
@@ -37,43 +38,40 @@ const asperc = Math.round(asdiv);
 const brightness = Variable(asperc);
 
 brightness.subscribe((value: number) => {
-    let rounded = Math.round(value);
-    exec(`brightnessctl set -d ${device} ${value}%`);
+  let rounded = Math.round(value);
+  exec(`brightnessctl set -d ${device} ${rounded}%`);
 });
 
-export default function Bright(){
-    return (
-        <box vertical className={"wide-container light"}>
-            <box className={"bright-sec-upper"}>
-                <label className={"message"} label={"be careful *~*"}/>
-                <Icon className={"bright-dec-a"} icon={"ray"}/>
-            </box>
-            <box className={"bright-sec-middle"}>
-                
-            </box>
-            <box className={"bright-sec-lower"}>
-                <Overlay
-                    className={"bright-overlay"}
-                    child={
-                    <Slider
-                        hexpand
-                        draw_value={false}
-                        min={5}
-                        max={100}
-                        value={asperc}
-                        onDragged={(self) => brightness.set(self.value)}
-                    />
-                    }
-                    overlay={
-                    <Icon
-                        className={"bright-icon"}
-                        halign={Gtk.Align.START}
-                        icon="eye"
-                    />
-                    }
-                />
-            </box>
-
-        </box>
-    )
+export default function Bright() {
+  return (
+    <box vertical className={"wide-container light"}>
+      <box className={"bright-sec-upper"}>
+        <label className={"message"} label={"be careful *~*"} />
+        <Icon className={"bright-dec-a"} icon={"ray"} />
+      </box>
+      <box className={"bright-sec-middle"}></box>
+      <box className={"bright-sec-lower"}>
+        <Overlay
+          className={"bright-overlay"}
+          child={
+            <Slider
+              hexpand
+              draw_value={false}
+              min={5}
+              max={100}
+              value={asperc}
+              onDragged={(self) => brightness.set(self.value)}
+            />
+          }
+          overlay={
+            <Icon
+              className={"bright-icon"}
+              halign={Gtk.Align.START}
+              icon="eye"
+            />
+          }
+        />
+      </box>
+    </box>
+  );
 }

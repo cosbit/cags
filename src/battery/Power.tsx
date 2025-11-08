@@ -1,12 +1,6 @@
-import { Variable, execAsync } from "astal";
+import { Variable } from "astal";
 import { Astal, Gtk } from "astal/gtk3";
 import { Icon } from "astal/gtk3/widget";
-
-function hasBattery(callback: (exists: boolean) => void) {
-  execAsync("[ -f /sys/class/power_supply/BAT1/capacity ]")
-    .then(() => callback(true))
-    .catch(() => callback(false));
-}
 
 function PowerUsage() {
   const { START, END } = Gtk.Align;
@@ -25,7 +19,7 @@ function PowerUsage() {
           truncate
           hexpand
           halign={END}
-          label={usage.value}
+          label={usage()}
           className={"battery-perc"}
         />
       </box>
@@ -121,7 +115,20 @@ function BatteryInfo() {
 }
 
 export default function PowerTile() {
-  const batteryExists = hasBattery()
+  // Create a polling Variable that checks if the battery exists
+  const batteryExists = Variable<boolean>(false).poll(
+    5000, // Check every 5 seconds
+    "[ -f /sys/class/power_supply/BAT1/capacity ] && cat /sys/class/power_supply/BAT1/capacity > /dev/null && echo 'true' || echo 'false'",
+    (output) => {
+      const exists = output.trim() === "true";
+      console.log("Battery exists:", exists);
+      return exists;
+    },
+  );
 
-  return batteryExists ? <BatteryInfo /> : <PowerUsage />;
+  console.log("Checking battery existence...");
+
+  // In Astal, call the Variable as a function to get its current value
+  // We can't use .value property
+  return batteryExists() ? <BatteryInfo /> : <PowerUsage />;
 }
