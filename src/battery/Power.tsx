@@ -6,9 +6,43 @@ function PowerUsage() {
   const { START, END } = Gtk.Align;
 
   const usage = Variable<string>("0").poll(
-    60000,
-    "top -b -n1 | grep 'Cpu(s)' | awk '{print $2 + $4}'",
-    (out: string) => out.trim() + "%",
+    1000,
+    "top -b -n1", // 1. Only run the top command
+    (out: string) => {
+      // 2. Process the raw output in TypeScript
+      try {
+        // Find the line that starts with %Cpu(s):
+        const lines = out.split("\n");
+        const cpuLine = lines.find((line) => line.startsWith("%Cpu(s):"));
+
+        if (!cpuLine) {
+          return "0%"; // Return default if line not found
+        }
+
+        // Use regex to find all number-like strings (e.g., "1.0", "96.4")
+        // on this line.
+        const matches = cpuLine.match(/[\d\.]+/g);
+
+        // We need at least two numbers (for us and sy)
+        if (!matches || matches.length < 2) {
+          return "0%"; // Return default if numbers aren't found
+        }
+
+        // Parse the first number (us) and the second number (sy).
+        // This matches the logic of your original awk '{print $2 + $4}'
+        const us = parseFloat(matches[0]);
+        const sy = parseFloat(matches[1]);
+
+        // Sum them up
+        const totalUsage = us + sy;
+
+        // Format to one decimal place and add the % sign
+        return totalUsage.toFixed(1) + "%";
+      } catch (error) {
+        console.error("Error parsing top output:", error);
+        return "0%";
+      }
+    },
   );
 
   return (
@@ -62,44 +96,40 @@ function BatteryInfo() {
 
         <box
           setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 30 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
+            self.hook(capacity, () => {
+              const isFull = capacity.get() >= 30;
+              self.toggleClassName("battery-cell", isFull);
+              self.toggleClassName("battery-cell-empty", !isFull);
+            });
           }}
         />
 
         <box
           setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 50 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
+            self.hook(capacity, () => {
+              const isFull = capacity.get() >= 50;
+              self.toggleClassName("battery-cell", isFull);
+              self.toggleClassName("battery-cell-empty", !isFull);
+            });
           }}
         />
 
         <box
           setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 70 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
+            self.hook(capacity, () => {
+              const isFull = capacity.get() >= 70;
+              self.toggleClassName("battery-cell", isFull);
+              self.toggleClassName("battery-cell-empty", !isFull);
+            });
           }}
         />
         <box
           setup={(self) => {
-            self.hook(capacity, () =>
-              self.toggleClassName(
-                capacity.get() >= 90 ? "battery-cell" : "battery-cell-empty",
-                true,
-              ),
-            );
+            self.hook(capacity, () => {
+              const isFull = capacity.get() >= 90;
+              self.toggleClassName("battery-cell", isFull);
+              self.toggleClassName("battery-cell-empty", !isFull);
+            });
           }}
         />
       </box>
@@ -128,7 +158,7 @@ export default function PowerTile() {
 
   console.log("Checking battery existence...");
 
-  // In Astal, call the Variable as a function to get its current value
-  // We can't use .value property
-  return batteryExists() ? <BatteryInfo /> : <PowerUsage />;
+  return <PowerUsage />;
+  // Temporeraly commented to work on PowerUsage
+  // return batteryExists() ? <BatteryInfo /> : <PowerUsage />;
 }
