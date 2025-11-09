@@ -158,7 +158,7 @@ export default function PowerTile() {
 
   console.log("Checking battery existence...");
 
-  return <PowerUsage />;
+  // return <PowerUsage />;
   // Temporeraly commented to work on PowerUsage
-  // return batteryExists() ? <BatteryInfo /> : <PowerUsage />;
+  return batteryExists() ? <BatteryInfo /> : <PowerUsage />;
 }
